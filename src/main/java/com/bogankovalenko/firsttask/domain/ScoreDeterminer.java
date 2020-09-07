@@ -37,7 +37,7 @@ public class ScoreDeterminer {
             System.out.println("Draw");
 
         }
-        System.out.println("Your score - " + scoreUser.getScore() + " : " + "Comp Score" + scoreComputer.getScore());
+        System.out.println("Your score - " + scoreUser.getScore() + " : " + "Computer Score - " + scoreComputer.getScore());
         System.out.println("\n" + "------------------------------------------------");
     }
 }

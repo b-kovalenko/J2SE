@@ -23,7 +23,7 @@ public class GameLogic {
         String paper = Figure.PAPER.getValue();
         String scissors = Figure.SCISSORS.getValue();
 
-        String initialMessage = String.format("Выберите значение: 0 - %s, 1 - %s, 2 - %s%n", stone, paper, scissors);
+        String initialMessage = String.format("Chose a figure 0 - %s, 1 - %s, 2 - %s%n", stone, paper, scissors);
 
         stoneField.setIndex(0);
         paperField.setIndex(1);
@@ -46,7 +46,7 @@ public class GameLogic {
 
                 for(Field userField: fields){
                     if(userField != null && userField.getIndex() == userNumberInput){
-                        System.out.println("You chose " + userField.getMessage());
+                        System.out.println("Your chose " + userField.getMessage());
                     }
                 }
                 int computerInput = (int)(Math.random() * 3);
@@ -56,9 +56,9 @@ public class GameLogic {
                     }
                 }
                 scoreDeterminer.determine(userNumberInput,computerInput, scoreComputer, scoreUser);
+
             }
         }
-
     }
             private boolean isNumber(String userInput){
                 try {
@@ -68,7 +68,7 @@ public class GameLogic {
                         return true;
                     }else return Integer.parseInt(userInput)==2;
                 } catch (Exception e){
-                    System.out.println("Invalid user input");
+                    System.out.println("Invalid user input, try again");
                 }
                 return false;
             }
