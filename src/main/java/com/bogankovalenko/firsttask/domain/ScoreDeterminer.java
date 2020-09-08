@@ -39,5 +39,6 @@ public class ScoreDeterminer {
         }
         System.out.println("Your score - " + scoreUser.getScore() + " : " + "Computer Score - " + scoreComputer.getScore());
         System.out.println("\n" + "------------------------------------------------");
+        System.out.println("\n" + "------------------------------------------------");
     }
 }

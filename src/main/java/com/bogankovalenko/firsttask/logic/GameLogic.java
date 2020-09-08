@@ -23,7 +23,7 @@ public class GameLogic {
         String paper = Figure.PAPER.getValue();
         String scissors = Figure.SCISSORS.getValue();
 
-        String initialMessage = String.format("Chose a figure 0 - %s, 1 - %s, 2 - %s%n", stone, paper, scissors);
+        String initialMessage = String.format("Chose a figure: 0 - %s, 1 - %s, 2 - %s%n", stone, paper, scissors);
 
         stoneField.setIndex(0);
         paperField.setIndex(1);
