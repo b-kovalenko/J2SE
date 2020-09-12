@@ -46,9 +46,12 @@ public class GameLogic {
         Field[] fields = initializeFigures();
 
         while(true){
+
+
             System.out.println(initialMessage);
 
             int userNumberInput = scanner.nextInt();
+
 
             if(isValid(userNumberInput, fields)) {
 
