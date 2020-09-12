@@ -1,23 +1,15 @@
 package com.bogankovalenko.firsttask.domain;
 
+import com.bogankovalenko.firsttask.logic.GameLogic;
+
 public class Field {
-    private int index;
-    private String message;
+        private Figure figure;
 
-    public int getIndex() {
-        return index;
-    }
-    public void setIndex(int index){
-        this.index = index;
+    public Field(Figure figure) {
+        this.figure = figure;
     }
 
-    public String getMessage(){
-        return message;
+    public Figure getFigure() {
+        return figure;
     }
-    public void setMessage(String message){
-        this.message = message;
-    }
-
-
-
 }
