@@ -5,37 +5,6 @@ import com.bogankovalenko.firsttask.domain.*;
 import java.util.Scanner;
 
 public class GameLogic {
-    public void determine(int userInput, int computerInput){
-        if (userInput == 0 && computerInput == 1) {
-            System.out.println("You Lose");
-
-        } else if (userInput == 0 && computerInput == 2) {
-            System.out.println("You Win");
-
-        } else if (userInput == 0 && computerInput == 0) {
-            System.out.println("Draw");
-
-        } else if (userInput == 1 && computerInput == 0) {
-            System.out.println("You Win");
-
-        } else if (userInput == 1 && computerInput == 1) {
-            System.out.println("Draw");
-
-        } else if (userInput == 1 && computerInput == 2) {
-            System.out.println("You Lose");
-
-        } else if (userInput == 2 && computerInput == 0) {
-            System.out.println("You Lose");
-
-        } else if (userInput == 2 && computerInput == 1) {
-            System.out.println("You Win");
-
-        } else if (userInput == 2 && computerInput == 2) {
-            System.out.println("Draw");
-
-        }
-        System.out.println("\n" + "------------------------------------------------");
-    }
 
     public void startGame() {
 
@@ -43,45 +12,50 @@ public class GameLogic {
 
         String initialMessage = String.format("Chose a figure: 0 - %s, 1 - %s, 2 - %s%n", Figure.STONE.getName(),Figure.PAPER.getName(),Figure.SCISSORS.getName());
 
-        Field[] fields = initializeFigures();
+        Figure[] figures = initializeFigures();
+
 
         while(true){
-
 
             System.out.println(initialMessage);
 
             int userNumberInput = scanner.nextInt();
 
 
-            if(isValid(userNumberInput, fields)) {
+            if(isValid(userNumberInput, figures)) {
 
-                determineChose(userNumberInput, "User’s", fields);
+                Figure userFigure = determineChose(userNumberInput, "User’s", figures);
 
                 int computerInput = (int)(Math.random() * 3);
 
-                determineChose(computerInput, "Computer’s", fields);
-
-                determine(userNumberInput,computerInput);
+                Figure computerFigure = determineChose(computerInput, "Computer’s", figures);
+                if(userFigure != null && computerFigure != null){
+                    Field field = new Field(userFigure, computerFigure);
+                    field.determine();
+                }
             } else{
-                System.out.println("Please enter number from 0 to " + fields.length);
+                System.out.println("Please enter number from 0 to " + figures.length);
             }
         }
 
     }
 
-    private void determineChose(int input, String who, Field[] fields){
-        for(Field field: fields){
-            if(field != null && field.getFigure().getIndex() == input){
-                System.out.println(who + " chose " + field.getFigure().getName());
+    private Figure determineChose(int input, String who, Figure[] figures){
+        for(Figure figure: figures){
+            if(figure != null && figure.getIndex() == input){
+                System.out.println(who + " chose " + figure.getName());
+                return figure;
             }
         }
+        return null;
     }
 
-    private Field[] initializeFigures() {
-        return new Field[]{new Field(Figure.STONE), new Field(Figure.PAPER), new Field(Figure.SCISSORS)};
+
+    private Figure[] initializeFigures() {
+        return new Figure[]{Figure.STONE, Figure.PAPER, Figure.SCISSORS};
     }
 
-    private boolean isValid(int userNumberInput, Field[] fields){
-        return userNumberInput >= 0 && userNumberInput <= fields.length;
+    private boolean isValid(int userNumberInput, Figure[] figures){
+        return userNumberInput >= 0 && userNumberInput <= figures.length;
     }
 }
