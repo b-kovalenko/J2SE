@@ -5,14 +5,48 @@ import com.bogankovalenko.firsttask.domain.*;
 import java.util.Scanner;
 
 public class GameLogic {
+    public void determine(Field field){
+        if (field.getFigureUser().getIndex() == 0 && field.getFigureComputer().getIndex() == 1) {
+            System.out.println("You Lose");
+
+        } else if (field.getFigureUser().getIndex() == 0 && field.getFigureComputer().getIndex() == 2) {
+            System.out.println("You Win");
+
+        } else if (field.getFigureUser().getIndex() == 0 && field.getFigureComputer().getIndex() == 0) {
+            System.out.println("Draw");
+
+        } else if (field.getFigureUser().getIndex() == 1 && field.getFigureComputer().getIndex() == 0) {
+            System.out.println("You Win");
+
+        } else if (field.getFigureUser().getIndex() == 1 && field.getFigureComputer().getIndex() == 1) {
+            System.out.println("Draw");
+
+        } else if (field.getFigureUser().getIndex() == 1 && field.getFigureComputer().getIndex() == 2) {
+            System.out.println("You Lose");
+
+        } else if (field.getFigureUser().getIndex() == 2 && field.getFigureComputer().getIndex() == 0) {
+            System.out.println("You Lose");
+
+        } else if (field.getFigureUser().getIndex() == 2 && field.getFigureComputer().getIndex() == 1) {
+            System.out.println("You Win");
+
+        } else if (field.getFigureUser().getIndex() == 2 && field.getFigureComputer().getIndex() == 2) {
+            System.out.println("Draw");
+
+        }
+        System.out.println("\n" + "------------------------------------------------");
+    }
+
 
     public void startGame() {
+        final String PC = "PC";
+        final String HUMAN = "HUMAN";
 
         Scanner scanner = new Scanner(System.in);
 
         String initialMessage = String.format("Chose a figure: 0 - %s, 1 - %s, 2 - %s%n", Figure.STONE.getName(),Figure.PAPER.getName(),Figure.SCISSORS.getName());
 
-        Figure[] figures = initializeFigures();
+        Figure[] figures = {Figure.STONE, Figure.PAPER, Figure.SCISSORS};
 
 
         while(true){
@@ -24,14 +58,13 @@ public class GameLogic {
 
             if(isValid(userNumberInput, figures)) {
 
-                Figure userFigure = determineChose(userNumberInput, "User’s", figures);
+                Figure userFigure = determineChose(userNumberInput, HUMAN, figures);
 
-                int computerInput = (int)(Math.random() * 3);
+                int computerInput = (int)(Math.random() * figures.length);
 
-                Figure computerFigure = determineChose(computerInput, "Computer’s", figures);
+                Figure computerFigure = determineChose(computerInput, PC, figures);
                 if(userFigure != null && computerFigure != null){
-                    Field field = new Field(userFigure, computerFigure);
-                    field.determine();
+                    determine( new Field(userFigure, computerFigure));
                 }
             } else{
                 System.out.println("Please enter number from 0 to " + figures.length);
@@ -51,9 +84,6 @@ public class GameLogic {
     }
 
 
-    private Figure[] initializeFigures() {
-        return new Figure[]{Figure.STONE, Figure.PAPER, Figure.SCISSORS};
-    }
 
     private boolean isValid(int userNumberInput, Figure[] figures){
         return userNumberInput >= 0 && userNumberInput <= figures.length;

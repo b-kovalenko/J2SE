@@ -1,7 +1,7 @@
 package com.bogankovalenko.firsttask.domain;
 
 public enum Figure {
-    STONE("stone", 0), PAPER("paper", 1), SCISSORS("scissors", 2);
+    STONE("STONE", 0), PAPER("PAPER", 1), SCISSORS("SCISSORS", 2);
 
 
     private String name;
