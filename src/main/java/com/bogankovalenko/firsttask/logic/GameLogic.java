@@ -5,7 +5,9 @@ import com.bogankovalenko.firsttask.domain.*;
 import java.util.Scanner;
 
 public class GameLogic {
-    public void determine(Field field){
+    final String PC = "PC";
+    final String HUMAN = "HUMAN";
+    public void checkWinner(Field field){
         if (field.getFigureUser().getIndex() == 0 && field.getFigureComputer().getIndex() == 1) {
             System.out.println("You Lose");
 
@@ -39,14 +41,11 @@ public class GameLogic {
 
 
     public void startGame() {
-        final String PC = "PC";
-        final String HUMAN = "HUMAN";
+
 
         Scanner scanner = new Scanner(System.in);
 
         String initialMessage = String.format("Chose a figure: 0 - %s, 1 - %s, 2 - %s%n", Figure.STONE.getName(),Figure.PAPER.getName(),Figure.SCISSORS.getName());
-
-        Figure[] figures = {Figure.STONE, Figure.PAPER, Figure.SCISSORS};
 
 
         while(true){
@@ -56,18 +55,18 @@ public class GameLogic {
             int userNumberInput = scanner.nextInt();
 
 
-            if(isValid(userNumberInput, figures)) {
+            if(isValid(userNumberInput, Figure.values() )) {
 
-                Figure userFigure = determineChose(userNumberInput, HUMAN, figures);
+                Figure userFigure = determineChose(userNumberInput, HUMAN, Figure.values());
 
-                int computerInput = (int)(Math.random() * figures.length);
+                int computerInput = (int)(Math.random() * Figure.values().length);
 
-                Figure computerFigure = determineChose(computerInput, PC, figures);
+                Figure computerFigure = determineChose(computerInput, PC, Figure.values());
                 if(userFigure != null && computerFigure != null){
-                    determine( new Field(userFigure, computerFigure));
+                    checkWinner( new Field(userFigure, computerFigure));
                 }
             } else{
-                System.out.println("Please enter number from 0 to " + figures.length);
+                System.out.println("Please enter number from 0 to " + Figure.values().length);
             }
         }
 
