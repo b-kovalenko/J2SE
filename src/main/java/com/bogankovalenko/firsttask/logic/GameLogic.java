@@ -4,26 +4,22 @@ import com.bogankovalenko.firsttask.domain.*;
 
 import java.util.Scanner;
 
+
 public class GameLogic {
-    final String PC = "PC";
-    final String HUMAN = "HUMAN";
     public void checkWinner(Field field){
-        if (field.getFigureUser().getIndex() == 0 && field.getFigureComputer().getIndex() == 1) {
+        if(field.getFigureUser().getIndex() == field.getFigureComputer().getIndex()){
+            System.out.println("Its a tie");
+        }
+        else if (field.getFigureUser().getIndex() == 0 && field.getFigureComputer().getIndex() == 1) {
             System.out.println("You Lose");
 
         } else if (field.getFigureUser().getIndex() == 0 && field.getFigureComputer().getIndex() == 2) {
             System.out.println("You Win");
 
-        } else if (field.getFigureUser().getIndex() == 0 && field.getFigureComputer().getIndex() == 0) {
-            System.out.println("Draw");
-
         } else if (field.getFigureUser().getIndex() == 1 && field.getFigureComputer().getIndex() == 0) {
             System.out.println("You Win");
 
-        } else if (field.getFigureUser().getIndex() == 1 && field.getFigureComputer().getIndex() == 1) {
-            System.out.println("Draw");
-
-        } else if (field.getFigureUser().getIndex() == 1 && field.getFigureComputer().getIndex() == 2) {
+        }  else if (field.getFigureUser().getIndex() == 1 && field.getFigureComputer().getIndex() == 2) {
             System.out.println("You Lose");
 
         } else if (field.getFigureUser().getIndex() == 2 && field.getFigureComputer().getIndex() == 0) {
@@ -31,11 +27,8 @@ public class GameLogic {
 
         } else if (field.getFigureUser().getIndex() == 2 && field.getFigureComputer().getIndex() == 1) {
             System.out.println("You Win");
-
-        } else if (field.getFigureUser().getIndex() == 2 && field.getFigureComputer().getIndex() == 2) {
-            System.out.println("Draw");
-
         }
+
         System.out.println("\n" + "------------------------------------------------");
     }
 
@@ -55,13 +48,15 @@ public class GameLogic {
             int userNumberInput = scanner.nextInt();
 
 
-            if(isValid(userNumberInput, Figure.values() )) {
+            if(isValid(userNumberInput)) {
 
-                Figure userFigure = determineChose(userNumberInput, HUMAN, Figure.values());
+                Figure userFigure = Figure.getByNumber(userNumberInput);
+                System.out.println("HUMAN chose " + Figure.getByNumber(userNumberInput));
 
                 int computerInput = (int)(Math.random() * Figure.values().length);
 
-                Figure computerFigure = determineChose(computerInput, PC, Figure.values());
+                Figure computerFigure = Figure.getByNumber(computerInput);
+                System.out.println("PC chose " + Figure.getByNumber(computerInput));
                 if(userFigure != null && computerFigure != null){
                     checkWinner( new Field(userFigure, computerFigure));
                 }
@@ -72,19 +67,7 @@ public class GameLogic {
 
     }
 
-    private Figure determineChose(int input, String who, Figure[] figures){
-        for(Figure figure: figures){
-            if(figure != null && figure.getIndex() == input){
-                System.out.println(who + " chose " + figure.getName());
-                return figure;
-            }
-        }
-        return null;
-    }
-
-
-
-    private boolean isValid(int userNumberInput, Figure[] figures){
-        return userNumberInput >= 0 && userNumberInput <= figures.length;
+    private boolean isValid(int userNumberInput){
+        return userNumberInput >= 0 && userNumberInput <= Figure.values().length;
     }
 }

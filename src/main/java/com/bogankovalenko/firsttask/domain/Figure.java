@@ -20,4 +20,17 @@ public enum Figure {
     public int getIndex() {
         return index;
     }
+    public static Figure getByNumber(int input){
+        for(Figure figure: Figure.values()){
+            if(figure.getIndex() == input){
+                switch(input) {
+                    case 0:
+                    case 1:
+                    case 2:
+                       return figure;
+                }
+            }
+        }
+        return null;
+    }
 }
